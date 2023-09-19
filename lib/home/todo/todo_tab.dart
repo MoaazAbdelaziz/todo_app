@@ -1,6 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/task_item.dart';
 

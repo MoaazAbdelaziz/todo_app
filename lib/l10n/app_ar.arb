@@ -1,0 +1,20 @@
+{
+    "app_title" : "قائمة الأعمال",
+    "list" : "القائمة",
+    "settings" : "الاعدادات",
+    "language" : "اللغة",
+    "arabic" : "العربية",
+    "english" : "الانجليزية",
+    "mode" : "نمط",
+    "light" : "مضيء",
+    "dark" : "ليلي",
+    "add_new_task" : "اضف مهمة جديدة",
+    "enter_task_title" : "ادخل عنوان المهمة",
+    "enter_task_description" : "ادخل تفاصيل المهمة",
+    "select_date" : "اختر التاريخ",
+    "add" : "اضافة",
+    "edit_task" : "تعديل المهمة",
+    "task_title" : "عنوان المهمة",
+    "task_description" : "تفاصيل المهمة",
+    "save_changes" : "حفظ التغيرات"
+}

@@ -3,6 +3,7 @@ import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/settings/settings_tab.dart';
 import 'package:todo_app/home/todo/add_task_bottom_sheet.dart';
 import 'package:todo_app/home/todo/todo_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: Text(
-          titles[currentIndex],
+          enTitles[currentIndex],
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
@@ -35,14 +36,14 @@ class _HomeViewState extends State<HomeView> {
               currentIndex = index;
             });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: 'List',
+              icon: const Icon(Icons.list),
+              label: AppLocalizations.of(context)!.list,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: const Icon(Icons.settings),
+              label: AppLocalizations.of(context)!.settings,
             ),
           ],
         ),
@@ -70,9 +71,14 @@ class _HomeViewState extends State<HomeView> {
     SettingsTab(),
   ];
 
-  List<String> titles = [
+  List<String> enTitles = [
     'To Do List',
     'Settings',
+  ];
+
+  List<String> arTitles = [
+    'قائمة المهام',
+    'الاعدادات',
   ];
 
   void showAddTaskBottomSheet() {

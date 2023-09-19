@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/settings/language_bottom_sheet.dart';
 import 'package:todo_app/home/settings/mode_bottom_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -20,7 +20,7 @@ class _SettingsTabState extends State<SettingsTab> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Language',
+            AppLocalizations.of(context)!.language,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontSize: 14,
                 ),
@@ -44,7 +44,7 @@ class _SettingsTabState extends State<SettingsTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'English',
+                      AppLocalizations.of(context)!.english,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -62,7 +62,7 @@ class _SettingsTabState extends State<SettingsTab> {
           ),
           const SizedBox(height: 22),
           Text(
-            'Mode',
+            AppLocalizations.of(context)!.mode,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontSize: 14,
                 ),
@@ -86,7 +86,7 @@ class _SettingsTabState extends State<SettingsTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Light',
+                      AppLocalizations.of(context)!.light,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,

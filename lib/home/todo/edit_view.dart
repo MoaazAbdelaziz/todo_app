@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/home/my_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditView extends StatefulWidget {
   const EditView({super.key});
@@ -19,7 +20,7 @@ class _EditViewState extends State<EditView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'To Do List',
+          AppLocalizations.of(context)!.app_title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
@@ -39,7 +40,7 @@ class _EditViewState extends State<EditView> {
             child: Column(
               children: [
                 Text(
-                  'Edit Task',
+                  AppLocalizations.of(context)!.edit_task,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 20),
@@ -51,30 +52,33 @@ class _EditViewState extends State<EditView> {
                       TextFormField(
                         validator: (text) {
                           if (text == null || text.isEmpty) {
-                            return 'Please Enter a Title';
+                            return AppLocalizations.of(context)!
+                                .please_enter_title;
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
-                          hintText: 'Task Title',
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.task_title,
                         ),
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
                         validator: (text) {
                           if (text == null || text.isEmpty) {
-                            return 'Please Enter a Description';
+                            return AppLocalizations.of(context)!
+                                .please_enter_des;
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
-                          hintText: 'Task details',
+                        decoration: InputDecoration(
+                          hintText:
+                              AppLocalizations.of(context)!.task_description,
                         ),
                         maxLines: 4,
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        'Select Date',
+                        AppLocalizations.of(context)!.select_date,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 20),
@@ -96,7 +100,7 @@ class _EditViewState extends State<EditView> {
                           }
                         },
                         child: Text(
-                          'Save Changes',
+                          AppLocalizations.of(context)!.save_changes,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),

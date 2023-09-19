@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -21,10 +22,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         child: Column(
           children: [
             Text(
-              'Add New Task',
+              AppLocalizations.of(context)!.add_new_task,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 12),
             Form(
               key: formKey,
               child: Column(
@@ -33,33 +34,34 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   TextFormField(
                     validator: (text) {
                       if (text == null || text.isEmpty) {
-                        return 'Please Enter a Title';
+                        return AppLocalizations.of(context)!.please_enter_title;
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Task Title',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.enter_task_title,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 7),
                   TextFormField(
                     validator: (text) {
                       if (text == null || text.isEmpty) {
-                        return 'Please Enter a Description';
+                        return AppLocalizations.of(context)!.please_enter_des;
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Task Description',
+                    decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(context)!.enter_task_description,
                     ),
                     maxLines: 4,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 12),
                   Text(
-                    'Select Date',
+                    AppLocalizations.of(context)!.select_date,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 12),
                   InkWell(
                     onTap: () {
                       showCalender();
@@ -70,7 +72,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 7),
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
@@ -78,7 +80,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       }
                     },
                     child: Text(
-                      'Add',
+                      AppLocalizations.of(context)!.add,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),

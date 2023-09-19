@@ -16,5 +16,7 @@
     "edit_task" : "Edit Task",
     "task_title" : "Task Title",
     "task_description" : "Task Description",
-    "save_changes" : "Save Changes"
+    "save_changes" : "Save Changes",
+    "please_enter_title" : "Please Enter a Title",
+    "please_enter_des" : "Please Enter a Description"
 }

@@ -16,5 +16,7 @@
     "edit_task" : "تعديل المهمة",
     "task_title" : "عنوان المهمة",
     "task_description" : "تفاصيل المهمة",
-    "save_changes" : "حفظ التغيرات"
+    "save_changes" : "حفظ التغيرات",
+    "please_enter_title" : "من فضلك ادخل العنوان",
+    "please_enter_des" : "من فضلك ادخل التفاصيل"
 }

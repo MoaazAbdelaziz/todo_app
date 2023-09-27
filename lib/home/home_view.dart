@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/settings/settings_tab.dart';
 import 'package:todo_app/home/todo/add_task_bottom_sheet.dart';
 import 'package:todo_app/home/todo/todo_tab.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/providers/app_config_provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -18,11 +20,15 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: Text(
-          enTitles[currentIndex],
+          provider.appLanguage == 'en'
+              ? enTitles[currentIndex]
+              : arTitles[currentIndex],
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),

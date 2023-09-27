@@ -31,7 +31,7 @@ class AppConfigProvider extends ChangeNotifier {
     return CacheHelper.getData(key: 'language');
   }
 
-  dynamic getAppThemee() {
+  dynamic getAppTheme() {
     return CacheHelper.getData(key: 'theme');
   }
 }

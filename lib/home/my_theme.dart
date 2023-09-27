@@ -52,4 +52,47 @@ class MyTheme {
       ),
     ),
   );
+
+  static ThemeData darkTheme = ThemeData(
+    primaryColor: blackColor,
+    appBarTheme: AppBarTheme(
+      backgroundColor: blackColor,
+    ),
+    scaffoldBackgroundColor: backGroundDark,
+    textTheme: TextTheme(
+      titleLarge: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: whitColor,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: whitColor,
+      ),
+      titleSmall: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: whitColor,
+      ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: blackColor,
+      unselectedItemColor: whitColor,
+      showUnselectedLabels: false,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: blackColor,
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+    ),
+  );
 }

@@ -1,20 +1,34 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/task_item.dart';
+import 'package:todo_app/providers/task_list_provider.dart';
 
-class TodoTab extends StatelessWidget {
+class TodoTab extends StatefulWidget {
   const TodoTab({super.key});
 
   @override
+  State<TodoTab> createState() => _TodoTabState();
+}
+
+class _TodoTabState extends State<TodoTab> {
+  @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<TaskListProvider>(context);
+    if (provider.tasks.isEmpty) {
+      provider.getAllTasksFromFireStore();
+    }
+
     return Column(
       children: [
         CalendarTimeline(
-          initialDate: DateTime.now(),
+          initialDate: provider.selectdDate,
           firstDate: DateTime.now().subtract(const Duration(days: 365)),
           lastDate: DateTime.now().add(const Duration(days: 365)),
-          onDateSelected: (date) => print(date),
+          onDateSelected: (date) {
+            provider.setNewSelectedDate(date);
+          },
           leftMargin: 20,
           monthColor: MyTheme.blackColor,
           dayColor: MyTheme.blackColor,
@@ -26,8 +40,9 @@ class TodoTab extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemBuilder: (context, index) => const TaskItem(),
-            itemCount: 20,
+            itemBuilder: (context, index) =>
+                TaskItem(task: provider.tasks[index]),
+            itemCount: provider.tasks.length,
           ),
         ),
       ],

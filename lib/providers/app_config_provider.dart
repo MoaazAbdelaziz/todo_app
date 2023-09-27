@@ -18,11 +18,11 @@ class AppConfigProvider extends ChangeNotifier {
 
   void changeAppTheme(ThemeMode newTheme) {
     if (newTheme == appTheme) {
-      CacheHelper.setData(key: 'theme', value: appLanguage);
+      CacheHelper.setData(key: 'theme', value: appLanguage.toString());
       return;
     } else {
       appTheme = newTheme;
-      CacheHelper.setData(key: 'theme', value: newTheme);
+      CacheHelper.setData(key: 'theme', value: newTheme.toString());
     }
     notifyListeners();
   }

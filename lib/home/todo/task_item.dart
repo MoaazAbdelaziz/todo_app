@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/firebase_utils.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/edit_view.dart';
+import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/task_list_provider.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  const TaskItem({super.key, required this.task});
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<TaskListProvider>(context);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Slidable(
@@ -16,7 +23,15 @@ class TaskItem extends StatelessWidget {
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                FirebaseUtils.deleteTaskFromFirestore(task).timeout(
+                  const Duration(milliseconds: 500),
+                  onTimeout: () {
+                    provider.getAllTasksFromFireStore();
+                    print('Deleted Successfully');
+                  },
+                );
+              },
               backgroundColor: MyTheme.redColor,
               foregroundColor: MyTheme.whitColor,
               icon: Icons.delete,
@@ -52,7 +67,7 @@ class TaskItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Title',
+                          task.title ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall!
@@ -62,7 +77,7 @@ class TaskItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Description',
+                          task.description ?? '',
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),

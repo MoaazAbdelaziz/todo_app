@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/firebase_utils.dart';
+import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/task_list_provider.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -12,9 +16,14 @@ class AddTaskBottomSheet extends StatefulWidget {
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   DateTime selectedDate = DateTime.now();
   var formKey = GlobalKey<FormState>();
+  var titleController = TextEditingController();
+  var desciptionController = TextEditingController();
+  late TaskListProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<TaskListProvider>(context);
+
     return Container(
       padding: const EdgeInsets.all(8),
       child: Padding(
@@ -32,6 +41,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextFormField(
+                    controller: titleController,
                     validator: (text) {
                       if (text == null || text.isEmpty) {
                         return AppLocalizations.of(context)!.please_enter_title;
@@ -44,6 +54,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   ),
                   const SizedBox(height: 7),
                   TextFormField(
+                    controller: desciptionController,
                     validator: (text) {
                       if (text == null || text.isEmpty) {
                         return AppLocalizations.of(context)!.please_enter_des;
@@ -76,7 +87,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pop(context);
+                        addTask(context);
                       }
                     },
                     child: Text(
@@ -93,10 +104,26 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     );
   }
 
+  void addTask(BuildContext context) {
+    TaskModel task = TaskModel(
+      title: titleController.text,
+      description: desciptionController.text,
+      taskDateTime: selectedDate,
+    );
+    FirebaseUtils.addTaskToFirebase(task).timeout(
+      const Duration(milliseconds: 500),
+      onTimeout: () {
+        print('Task Added Successfully');
+        provider.getAllTasksFromFireStore();
+        Navigator.pop(context);
+      },
+    );
+  }
+
   void showCalender() async {
     var pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );

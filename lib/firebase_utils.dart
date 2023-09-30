@@ -22,4 +22,18 @@ abstract class FirebaseUtils {
   static Future<void> deleteTaskFromFirestore(TaskModel task) {
     return getTaskscollection().doc(task.id).delete();
   }
+
+  static Future<void> editTasktoFirebase(
+    TaskModel task, {
+    required String newTitle,
+    required String newDescription,
+    required DateTime newTaskDateTime,
+  }) async {
+    var tasksCollection = getTaskscollection();
+    return tasksCollection.doc(task.id).update({
+      'title': newTitle,
+      'description': newDescription,
+      'taskDateTime': newTaskDateTime.millisecondsSinceEpoch,
+    });
+  }
 }

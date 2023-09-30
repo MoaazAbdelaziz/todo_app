@@ -41,7 +41,10 @@ class TaskItem extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(EditView.routeName);
+            Navigator.of(context).pushNamed(
+              EditView.routeName,
+              arguments: task,
+            );
           },
           child: Container(
             height: 100,

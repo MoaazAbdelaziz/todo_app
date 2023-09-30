@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/firebase_utils.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/task_list_provider.dart';
 
 class EditView extends StatefulWidget {
   const EditView({super.key});
@@ -14,9 +18,15 @@ class EditView extends StatefulWidget {
 class _EditViewState extends State<EditView> {
   var formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
+  var titleController = TextEditingController();
+  var desciptionController = TextEditingController();
+  late TaskListProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<TaskListProvider>(context);
+    var task = ModalRoute.of(context)!.settings.arguments as TaskModel;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,6 +60,7 @@ class _EditViewState extends State<EditView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TextFormField(
+                        controller: titleController,
                         validator: (text) {
                           if (text == null || text.isEmpty) {
                             return AppLocalizations.of(context)!
@@ -63,6 +74,7 @@ class _EditViewState extends State<EditView> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        controller: desciptionController,
                         validator: (text) {
                           if (text == null || text.isEmpty) {
                             return AppLocalizations.of(context)!
@@ -96,7 +108,19 @@ class _EditViewState extends State<EditView> {
                       ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            Navigator.pop(context);
+                            FirebaseUtils.editTasktoFirebase(
+                              task,
+                              newTitle: titleController.text,
+                              newDescription: desciptionController.text,
+                              newTaskDateTime: selectedDate,
+                            ).timeout(
+                              const Duration(milliseconds: 500),
+                              onTimeout: () {
+                                provider.getAllTasksFromFireStore();
+                                print('Task updated successfuly');
+                                Navigator.pop(context);
+                              },
+                            );
                           }
                         },
                         child: Text(
@@ -118,7 +142,7 @@ class _EditViewState extends State<EditView> {
   void showCalender() async {
     var pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );

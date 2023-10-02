@@ -5,11 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/cache_helper.dart';
 import 'package:todo_app/firebase_options.dart';
 import 'package:todo_app/home/home_view.dart';
+import 'package:todo_app/login/login_screen.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/edit_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/providers/app_config_provider.dart';
 import 'package:todo_app/providers/task_list_provider.dart';
+import 'package:todo_app/register/register_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,8 +48,10 @@ class ToDoApp extends StatelessWidget {
       routes: {
         HomeView.routeName: (context) => const HomeView(),
         EditView.routeName: (context) => const EditView(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        RegisterScreen.routeName: (context) => const RegisterScreen(),
       },
-      initialRoute: HomeView.routeName,
+      initialRoute: RegisterScreen.routeName,
       locale: Locale(lang),
       themeMode: theme == 'ThemeMode.light' ? ThemeMode.light : ThemeMode.dark,
     );

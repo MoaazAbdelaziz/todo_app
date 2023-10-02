@@ -28,7 +28,7 @@ abstract class FirebaseUtils {
     required String newTitle,
     required String newDescription,
     required DateTime newTaskDateTime,
-  }) async {
+  }) {
     var tasksCollection = getTaskscollection();
     return tasksCollection.doc(task.id).update({
       'title': newTitle,

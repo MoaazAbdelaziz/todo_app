@@ -5,7 +5,10 @@ import 'package:todo_app/home/settings/settings_tab.dart';
 import 'package:todo_app/home/todo/add_task_bottom_sheet.dart';
 import 'package:todo_app/home/todo/todo_tab.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/login/login_screen.dart';
 import 'package:todo_app/providers/app_config_provider.dart';
+import 'package:todo_app/providers/auth_provider.dart';
+import 'package:todo_app/providers/task_list_provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -21,6 +24,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<AppConfigProvider>(context);
+    var authProvider = Provider.of<AuthProvider>(context);
+    var listProvider = Provider.of<TaskListProvider>(context);
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -31,6 +36,16 @@ class _HomeViewState extends State<HomeView> {
               : arTitles[currentIndex],
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              listProvider.tasks = [];
+              authProvider.currentUser = null;
+              Navigator.pushNamed(context, LoginScreen.routeName);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),

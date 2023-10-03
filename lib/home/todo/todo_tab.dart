@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/task_item.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/providers/task_list_provider.dart';
 
 class TodoTab extends StatefulWidget {
@@ -16,8 +17,9 @@ class _TodoTabState extends State<TodoTab> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<TaskListProvider>(context);
+    var authProvider = Provider.of<AuthProvider>(context);
     if (provider.tasks.isEmpty) {
-      provider.getAllTasksFromFireStore();
+      provider.getAllTasksFromFireStore(authProvider.currentUser!.id!);
     }
 
     return Column(
@@ -27,7 +29,7 @@ class _TodoTabState extends State<TodoTab> {
           firstDate: DateTime.now().subtract(const Duration(days: 365)),
           lastDate: DateTime.now().add(const Duration(days: 365)),
           onDateSelected: (date) {
-            provider.setNewSelectedDate(date);
+            provider.setNewSelectedDate(date, authProvider.currentUser!.id!);
           },
           leftMargin: 20,
           monthColor: MyTheme.blackColor,

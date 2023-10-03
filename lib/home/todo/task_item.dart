@@ -5,6 +5,7 @@ import 'package:todo_app/firebase_utils.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:todo_app/home/todo/edit_view.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/providers/task_list_provider.dart';
 
 class TaskItem extends StatelessWidget {
@@ -24,10 +25,16 @@ class TaskItem extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                FirebaseUtils.deleteTaskFromFirestore(task).timeout(
+                var authProvider = Provider.of<AuthProvider>(context);
+                FirebaseUtils.deleteTaskFromFirestore(
+                  task,
+                  authProvider.currentUser!.id!,
+                ).timeout(
                   const Duration(milliseconds: 500),
                   onTimeout: () {
-                    provider.getAllTasksFromFireStore();
+                    provider.getAllTasksFromFireStore(
+                      authProvider.currentUser!.id!,
+                    );
                     print('Deleted Successfully');
                   },
                 );

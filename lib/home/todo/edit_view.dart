@@ -5,6 +5,7 @@ import 'package:todo_app/firebase_utils.dart';
 import 'package:todo_app/home/my_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/models/task_model.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/providers/task_list_provider.dart';
 
 class EditView extends StatefulWidget {
@@ -108,15 +109,20 @@ class _EditViewState extends State<EditView> {
                       ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
+                            var authProvider =
+                                Provider.of<AuthProvider>(context);
                             FirebaseUtils.editTasktoFirebase(
                               task,
+                              authProvider.currentUser!.id!,
                               newTitle: titleController.text,
                               newDescription: desciptionController.text,
                               newTaskDateTime: selectedDate,
                             ).timeout(
                               const Duration(milliseconds: 500),
                               onTimeout: () {
-                                provider.getAllTasksFromFireStore();
+                                provider.getAllTasksFromFireStore(
+                                  authProvider.currentUser!.id!,
+                                );
                                 print('Task updated successfuly');
                                 Navigator.pop(context);
                               },
